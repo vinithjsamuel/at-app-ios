@@ -50,7 +50,6 @@ app.factory('apiFactory', function($http) {
             })
         },
         fetchDeals: function(callback, filter, page, category) {
-            alert('fetchDeals');
             $http({
                 method: 'POST',
                 data: {
@@ -59,7 +58,6 @@ app.factory('apiFactory', function($http) {
                 },
                 url: site_url + '/mobile_api.php'
             }).success(function(data) {
-                alert('success');
                 if (data.success) callback(data.success)
             })
         },
