@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
-    id        = "aesthetictoday.merchant.onlinedeals"
+    id        = "com.aesthetictoday.spadeals"
     version   ="1.0.0"
     >
-  <name>AT | Merchant</name>
+  <name>Aesthetic Today</name>
   <description>
-        Aesthetic Today Merchant's Application for a Quick Redemption!
+        Aesthetic Today Client!
     </description>
   <author email="aesthetictoday@gmail.com" href="http://aesthetictoday.com">
         AT Team
@@ -27,7 +27,7 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-<gap:plugin name="com.phonegap.plugins.barcodescanner" source="pgb" version="2.2.0" />
+<gap:plugin name="com.phonegap.plugins.inappbrowser"/>
 <gap:plugin name="org.apache.cordova.camera" source="pgb" version="0.3.2" />
 <gap:plugin name="org.apache.cordova.device" source="pgb" version="0.2.12" />
 <gap:plugin name="org.apache.cordova.dialogs" source="pgb" version="0.2.10" />
