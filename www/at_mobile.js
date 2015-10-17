@@ -34,6 +34,7 @@ app.directive("ngMobileClick",function () {
 });
 
 app.config(function($routeProvider, $locationProvider) {
+	alert('test');
   $routeProvider.when('/', {templateUrl: "deals.html",controller: 'dealController'}); 
   $routeProvider.when('/home',          {templateUrl: "home.html"});
   $routeProvider.when('/login',  	{templateUrl: "login.html"}); 
