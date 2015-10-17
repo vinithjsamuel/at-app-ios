@@ -1,5 +1,42 @@
 app.controller('userAccountController',function($rootScope, $scope, $http, $location, $routeParams, apiFactory, $cookies, $cookieStore,$timeout){
-	$rootScope.loading = true;	
+	$rootScope.loading = true;
+
+    $scope.accountinfoload = function(){
+        $scope.emiratesOption = null;
+        $scope.UpdateUsr = [];
+        $scope.UpdateUsr['resMessage'] = [];
+        $scope.billingAdrUpdate = [];
+        $scope.billingAdrUpdate['resMessage'] = [];
+        $scope.EmailPreUpdate = [];
+        $scope.EmailPreUpdate['resMessage'] = [];
+        $scope.UpdateUsrFrm = 0;
+        $scope.UpdateAddFrm = 0;
+        $scope.UpdatePwdFrm = 0;
+        $scope.UpdateEmailPreFrm = 0;
+        $scope.ChangePassword = {};
+        $scope.changePwdResField = [];
+        $scope.UpdateUsr = null;
+        /*$rootScope.emirates = $cookieStore.get('emirates');
+        $scope.emiratesOption = $rootScope.emirates;*/
+        if (typeof $cookieStore.get('userdata') != undefined) {
+            $scope.UpdateUsr = $rootScope.userdata;
+            $scope.UpdateUsr.first_name = $rootScope.userdata.at_first_name;
+            $scope.UpdateUsr.last_name = $rootScope.userdata.at_last_name;
+            if ($rootScope.userdata != null) {
+                $scope.billingAdrUpdate['aes_address_one'] = $rootScope.userdata._aes_address_one;
+                $scope.billingAdrUpdate['aes_address_two'] = $rootScope.userdata._aes_address_two;
+                $scope.billingAdrUpdate['aes_address_emirate'] = $rootScope.userdata._aes_address_emirate;
+                $("#aes_address_emirate").val($rootScope.userdata._aes_address_emirate);
+                $scope.billingAdrUpdate['aes_address_pin'] = $rootScope.userdata._aes_address_pin;
+                $scope.EmailPreUpdate["at_user_subscribed_city"] = $rootScope.userdata.at_user_subscribed_city;
+                $("#at_user_subscribed_city").val($rootScope.userdata.at_user_subscribed_city);
+                if (typeof $rootScope.userdata.at_subscribe_news_letter != undefined) $scope.EmailPreUpdate["at_subscribe_news_letter"] = $rootScope.userdata.at_subscribe_news_letter;
+                else $scope.EmailPreUpdate["at_subscribe_news_letter"] = 4
+            }
+        }
+    }
+
+    	
 	if($rootScope.userdata && $rootScope.userdata!=undefined){
 		if($cookieStore.get('userdata')==undefined){
 			$http.get(site_url + '/ajax/aesthetic_wp_load_json.php?platform=mobile&getusermetainfobyid=yes&userid='+$rootScope.userdata.ID)
@@ -27,41 +64,6 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
 	}else{
 		$rootScope.loading = false;
 		$location.url('login');
-	}
-
-	$scope.accountinfoload = function(){
-		$scope.emiratesOption = null;
-	    $scope.UpdateUsr = [];
-	    $scope.UpdateUsr['resMessage'] = [];
-	    $scope.billingAdrUpdate = [];
-	    $scope.billingAdrUpdate['resMessage'] = [];
-	    $scope.EmailPreUpdate = [];
-	    $scope.EmailPreUpdate['resMessage'] = [];
-	    $scope.UpdateUsrFrm = 0;
-	    $scope.UpdateAddFrm = 0;
-	    $scope.UpdatePwdFrm = 0;
-	    $scope.UpdateEmailPreFrm = 0;
-	    $scope.ChangePassword = {};
-	    $scope.changePwdResField = [];
-	    $scope.UpdateUsr = null;
-	    /*$rootScope.emirates = $cookieStore.get('emirates');
-	    $scope.emiratesOption = $rootScope.emirates;*/
-	    if (typeof $cookieStore.get('userdata') != undefined) {
-	    	$scope.UpdateUsr = $rootScope.userdata;
-	        $scope.UpdateUsr.first_name = $rootScope.userdata.at_first_name;
-	        $scope.UpdateUsr.last_name = $rootScope.userdata.at_last_name;
-	        if ($rootScope.userdata != null) {
-	            $scope.billingAdrUpdate['aes_address_one'] = $rootScope.userdata._aes_address_one;
-	            $scope.billingAdrUpdate['aes_address_two'] = $rootScope.userdata._aes_address_two;
-	            $scope.billingAdrUpdate['aes_address_emirate'] = $rootScope.userdata._aes_address_emirate;
-	            $("#aes_address_emirate").val($rootScope.userdata._aes_address_emirate);
-	            $scope.billingAdrUpdate['aes_address_pin'] = $rootScope.userdata._aes_address_pin;
-	            $scope.EmailPreUpdate["at_user_subscribed_city"] = $rootScope.userdata.at_user_subscribed_city;
-	            $("#at_user_subscribed_city").val($rootScope.userdata.at_user_subscribed_city);
-	            if (typeof $rootScope.userdata.at_subscribe_news_letter != undefined) $scope.EmailPreUpdate["at_subscribe_news_letter"] = $rootScope.userdata.at_subscribe_news_letter;
-	            else $scope.EmailPreUpdate["at_subscribe_news_letter"] = 4
-	        }
-	    }
 	}
 
 	$scope.changePasswordForm = function() {
