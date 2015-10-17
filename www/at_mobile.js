@@ -189,6 +189,7 @@ app.controller('MainController', function($rootScope, $scope, $http,$location,$r
 	  apiFactory.UserService(function(data){
 		if(data.error)
 		{   
+			alert('error');
 			$rootScope.loading = false;
 			$rootScope.userid=0;
 			$rootScope.userdata=null;
@@ -197,6 +198,7 @@ app.controller('MainController', function($rootScope, $scope, $http,$location,$r
 		}
 		if(data.success)
 		{
+			alert('success');
 			$rootScope.userid=data.success.user_id;
 			$rootScope.userdata=data.success.user_data;
 			$rootScope.loading = false;
