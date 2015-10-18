@@ -257,7 +257,11 @@ app.controller('MainController', function($rootScope, $scope, $http,$location,$r
 	  	$rootScope.toggle('registerOverlay', 'off');
 	  else
 		$rootScope.toggle(form, 'off');
-	  window.history.go(-1);
+	if($location.path()=='/login' || $location.path()=='/sign-up'){
+		$location.url('deals/all');
+	}else{
+		window.history.go(-1);
+	}
   };
   $rootScope.goHome=function(){
 	  $rootScope.PageTitle=" HOME ";

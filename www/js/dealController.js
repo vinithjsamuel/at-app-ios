@@ -185,6 +185,10 @@ app.controller('dealDetailController',function($rootScope, $scope, $http,$locati
 			
 		$rootScope.loading = false;
 	})
+
+	$scope.gotoMaps = function(lat,long){
+		window.open("https://www.google.com/maps/dir//"+lat+","+long,"_system");
+	}
 	
 	$scope.goToBuyPage=function(deal_name,option)
 	{
