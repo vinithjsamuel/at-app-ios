@@ -257,7 +257,7 @@ app.controller('MainController', function($rootScope, $scope, $http,$location,$r
 	  	$rootScope.toggle('registerOverlay', 'off');
 	  else
 		$rootScope.toggle(form, 'off');
-	  window.location='#/deals/all';
+	  window.history.go(-1);
   };
   $rootScope.goHome=function(){
 	  $rootScope.PageTitle=" HOME ";
@@ -468,7 +468,7 @@ app.controller('onInAppBrowseController', function($rootScope, $scope, $http,$lo
 	  			if($rootScope.atIsSessionExistCloseAction == 'success'){
 	  				$http({method: 'POST',data: {deletems: $scope.userid,redirect: 'success'},url: site_url+'/ajax/aesthetic_deals_json.php'})
 			    	.success(function(data) {
-			    		location.replace('#failed');
+			    		location.replace('#thank-you');
 			    		/*$location.url('failed');*/
 					});
 					$location.url('thank-you');

@@ -386,7 +386,7 @@ app.controller('bookappointmentController', function($rootScope, $scope, $http, 
 
     $scope.submitAppointment = function(appointDetails){
         if(!$scope.isAppointCode){
-            if(appointDetails.category!='' && appointDetails.category!=undefined && appointDetails.deal!='' && appointDetails.deal!=undefined){
+            /*if(appointDetails.category!='' && appointDetails.category!=undefined && appointDetails.deal!='' && appointDetails.deal!=undefined){
                 var allowSubmit = true;
             }else{
                 var allowSubmit = false;
@@ -397,7 +397,7 @@ app.controller('bookappointmentController', function($rootScope, $scope, $http, 
             }else{
                 var redirectUrl = 'buy/'+appointDetails.deal;
                 var redirectUrlOption = null;
-            }
+            }*/
         }else{
             var allowSubmit = true;
             var redirectUrl = 'deals/all';
@@ -415,9 +415,7 @@ app.controller('bookappointmentController', function($rootScope, $scope, $http, 
             $http.post(site_url + '/ajax/aesthetic_wp_load_json.php', {book_appoint:'yes',appointment_info:appointDetails}).
               success(function(data, status, headers, config) {
                 $rootScope.loading = false;
-                if(redirectUrlOption){alert('Kindly proceed with the payment to confirm your booking!'); $location.path(redirectUrl).search({option: redirectUrlOption});}
-                else if(redirectUrl) {alert('Kindly proceed with the payment to confirm your booking!'); $location.path(redirectUrl);}
-                else{alert('Appointment Request Submitted! Thank You!'); $location.path('deals/all');}
+                alert('Appointment Request Submitted! Thank You!'); $location.path('deals/all');
             }).
               error(function(data, status, headers, config) {
                alert('failed');

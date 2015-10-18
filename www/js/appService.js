@@ -13,12 +13,13 @@ app.factory('apiFactory', function($http) {
                 callback(data)
             })
         },
-        getUserPurchase: function(callback) {
+        getUserPurchase: function(callback, user_id) {
             $http({
                 method: 'POST',
                 data: {
                     mobile: 'yes',
-                    userPurchase: 'yes'
+                    userPurchase: 'yes',
+                    user_id:user_id
                 },
                 url: site_url + '/mobile_api.php'
             }).success(function(data) {

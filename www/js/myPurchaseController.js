@@ -3,36 +3,37 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
 
     $scope.accountinfoload = function(){
         $scope.emiratesOption = null;
-        $scope.UpdateUsr = [];
-        $scope.UpdateUsr['resMessage'] = [];
-        $scope.billingAdrUpdate = [];
-        $scope.billingAdrUpdate['resMessage'] = [];
-        $scope.EmailPreUpdate = [];
-        $scope.EmailPreUpdate['resMessage'] = [];
+        $scope.atUpdateUsr = {};
+        $scope.atUpdateUsr.resMessage = [];
+        $scope.atbillingAdrUpdate = {};
+        $scope.atbillingAdrUpdate.resMessage = [];
+        $scope.atEmailPreUpdate = {};
+        $scope.atEmailPreUpdate.resMessage = [];
         $scope.UpdateUsrFrm = 0;
         $scope.UpdateAddFrm = 0;
         $scope.UpdatePwdFrm = 0;
         $scope.UpdateEmailPreFrm = 0;
-        $scope.ChangePassword = {};
-        $scope.changePwdResField = [];
-        $scope.UpdateUsr = null;
+        $scope.atChangePassword = {};
         /*$rootScope.emirates = $cookieStore.get('emirates');
         $scope.emiratesOption = $rootScope.emirates;*/
         if (typeof $cookieStore.get('userdata') != undefined) {
-            $scope.UpdateUsr = $rootScope.userdata;
-            $scope.UpdateUsr.first_name = $rootScope.userdata.at_first_name;
-            $scope.UpdateUsr.last_name = $rootScope.userdata.at_last_name;
+            $scope.atUpdateUsr = $rootScope.userdata;
+            $scope.atUpdateUsr.first_name = $rootScope.userdata.at_first_name;
+            $scope.atUpdateUsr.last_name = $rootScope.userdata.at_last_name;
             if ($rootScope.userdata != null) {
-                $scope.billingAdrUpdate['aes_address_one'] = $rootScope.userdata._aes_address_one;
-                $scope.billingAdrUpdate['aes_address_two'] = $rootScope.userdata._aes_address_two;
-                $scope.billingAdrUpdate['aes_address_emirate'] = $rootScope.userdata._aes_address_emirate;
+                $scope.atbillingAdrUpdate.aes_address_one = $rootScope.userdata._aes_address_one;
+                $scope.atbillingAdrUpdate.aes_address_two = $rootScope.userdata._aes_address_two;
+                $scope.atbillingAdrUpdate.aes_address_emirate = $rootScope.userdata._aes_address_emirate;
                 $("#aes_address_emirate").val($rootScope.userdata._aes_address_emirate);
-                $scope.billingAdrUpdate['aes_address_pin'] = $rootScope.userdata._aes_address_pin;
-                $scope.EmailPreUpdate["at_user_subscribed_city"] = $rootScope.userdata.at_user_subscribed_city;
+                $scope.atbillingAdrUpdate.aes_address_pin = $rootScope.userdata._aes_address_pin;
+                $scope.atEmailPreUpdate.at_user_subscribed_city = $rootScope.userdata.at_user_subscribed_city;
                 $("#at_user_subscribed_city").val($rootScope.userdata.at_user_subscribed_city);
-                if (typeof $rootScope.userdata.at_subscribe_news_letter != undefined) $scope.EmailPreUpdate["at_subscribe_news_letter"] = $rootScope.userdata.at_subscribe_news_letter;
-                else $scope.EmailPreUpdate["at_subscribe_news_letter"] = 4
+                if ($rootScope.userdata.at_subscribe_news_letter == undefined){
+                    $scope.atEmailPreUpdate.at_subscribe_news_letter = 4;
+                }
+                else $scope.atEmailPreUpdate.at_subscribe_news_letter = $rootScope.userdata.at_subscribe_news_letter;
             }
+            $scope.atUpdateUsr.resMessage = [];
         }
     }
 
@@ -72,9 +73,9 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
         }else{
             var user_id = 0;
         }
-        var oldPassword = $scope.ChangePassword.passwordField;
-        var newPassword = $scope.ChangePassword.newPasswordField;
-        var confirmNewPassword = $scope.ChangePassword.confirmNewPasswordField;
+        var oldPassword = $scope.atChangePassword.passwordField;
+        var newPassword = $scope.atChangePassword.newPasswordField;
+        var confirmNewPassword = $scope.atChangePassword.confirmNewPasswordField;
         $scope.changePwdResField = [];
         if (newPassword !== confirmNewPassword) {
             $scope.changePwdResField[0] = {
@@ -117,7 +118,7 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
                         $cookieStore.put('userdata', $rootScope.userdata);
                     }
                 }
-                $scope.ChangePassword = null;
+                $scope.atChangePassword = null;
                 $scope.UpdatePwdFrm = 0
             })
         }
@@ -128,12 +129,12 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
         }else{
             var user_id = 0;
         }
-        var address_1 = $scope.billingAdrUpdate.aes_address_one;
-        var address_2 = $scope.billingAdrUpdate.aes_address_two;
-        var city = $scope.billingAdrUpdate.aes_address_emirate;
-        var po_box = $scope.billingAdrUpdate.po_box;
+        var address_1 = $scope.atbillingAdrUpdate.aes_address_one;
+        var address_2 = $scope.atbillingAdrUpdate.aes_address_two;
+        var city = $scope.atbillingAdrUpdate.aes_address_emirate;
+        var po_box = $scope.atbillingAdrUpdate.aes_address_pin;
         $scope.UpdateAddFrm = 1;
-        $scope.billingAdrUpdate['resMessage'] = [];
+        $scope.atbillingAdrUpdate.resMessage = [];
         $http({
             method: 'POST',
             data: {
@@ -149,7 +150,7 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
             url: site_url + '/mobile_api.php'
         }).success(function(data) {
             if (data.success) {
-                $scope.billingAdrUpdate.resMessage[0] = {
+                $scope.atbillingAdrUpdate.resMessage[0] = {
                     msgType: 'alert-success',
                     msg: data.success.message
                 };
@@ -168,13 +169,13 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
         }else{
             var user_id = 0;
         }
-        var first_name = $scope.UpdateUsr.first_name;
-        var nationality = $scope.UpdateUsr.nationality;
-        var gender = $scope.UpdateUsr.gender;
-        var last_name = $scope.UpdateUsr.last_name;
-        var contact_mobile = $scope.UpdateUsr.contact_mobile;
+        var first_name = $scope.atUpdateUsr.first_name;
+        var nationality = $scope.atUpdateUsr.nationality;
+        var gender = $scope.atUpdateUsr.gender;
+        var last_name = $scope.atUpdateUsr.last_name;
+        var contact_mobile = $scope.atUpdateUsr.contact_mobile;
         $scope.UpdateUsrFrm = 1;
-        $scope.UpdateUsr['resMessage'] = [];
+        $scope.atUpdateUsr.resMessage = [];
         $http({
             method: 'POST',
             data: {
@@ -191,7 +192,7 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
             url: site_url + '/mobile_api.php'
         }).success(function(data) {
             if (data.success) {
-                $scope.UpdateUsr.resMessage[0] = {
+                $scope.atUpdateUsr.resMessage[0] = {
                     msgType: 'alert-success',
                     msg: data.success.message
                 };
@@ -211,10 +212,10 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
         }else{
             var user_id = 0;
         }
-        var emailpreferences = $scope.EmailPreUpdate.emailpreferences;
-        var subscribe_city = $scope.EmailPreUpdate.at_user_subscribed_city;
+        var emailpreferences = $scope.atEmailPreUpdate.at_subscribe_news_letter;
+        var subscribe_city = $scope.atEmailPreUpdate.at_user_subscribed_city;
         $scope.UpdateEmailPreFrm = 1;
-        $scope.EmailPreUpdate['resMessage'] = [];
+        $scope.atEmailPreUpdate.resMessage = [];
         $http({
             method: 'POST',
             data: {
@@ -228,7 +229,7 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
             url: site_url + '/mobile_api.php'
         }).success(function(data) {
             if (data.success) {
-                $scope.EmailPreUpdate.resMessage[0] = {
+                $scope.atEmailPreUpdate.resMessage[0] = {
                     msgType: 'alert-success',
                     msg: data.success.message
                 };
@@ -242,14 +243,26 @@ app.controller('userAccountController',function($rootScope, $scope, $http, $loca
 })
 app.controller('myPurchaseController',function($rootScope,$scope,$http,$location,$routeParams,apiFactory,$cookies,$cookieStore){
 	$scope.userPurchase=null;
-	if($scope.userPurchase==null){
+	if($scope.userPurchase==null && $rootScope.userdata.ID){
 		$rootScope.loading = true;
-		apiFactory.getUserPurchase(function(data){
-			if(data.success){
-				$scope.userPurchase=data.success.userPurchase;
-				/*$rootScope.userdata=data.success.user_details;
-				$cookieStore.put('userdata',$rootScope.userdata);*/
-				$rootScope.loading = false}
-			})
+        var user_id = $rootScope.userdata.ID;
+        $http({
+            method: 'POST',
+            data: {
+                mobile: 'yes',
+                userPurchase: 'yes',
+                user_id:user_id
+            },
+            url: site_url + '/mobile_api.php'
+            }).success(function(data) {
+                if(data.success){
+                    $scope.userPurchase=data.success.userPurchase;
+                    $rootScope.loading = false
+                }
+            }).error(function(data, status, headers, config) {
+                $rootScope.loading = false;
+                alert('Error Accessing Network!')
+                $location.url('deals/all');
+            });
 	}
 })

@@ -18,7 +18,6 @@
 }
 #mainSidebar a.list-group-items{
     display: block;
-    background-color: rgba(0, 0, 0, .5);
     color: #fff;
     padding: 10px 15px;
     text-decoration: none;
@@ -51,7 +50,7 @@
     cursor: pointer;
 }*/
 #mainSidebar.sidebar-left {
-    background: #CB307F;
+    background: #691741;
 }
 #mainSidebar .app-name {
     margin: 50px 0 0;
